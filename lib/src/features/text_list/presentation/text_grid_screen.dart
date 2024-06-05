@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:ts_5_8_1_checklisten_app/src/data/database_repository.dart';
 
-class TextListScreen extends StatefulWidget {
+class TextGridScreen extends StatefulWidget {
   final DatabaseRepository databaseRepository;
 
-  const TextListScreen({super.key, required this.databaseRepository});
+  const TextGridScreen({super.key, required this.databaseRepository});
 
   @override
   _TextListScreenState createState() => _TextListScreenState();
 }
 
-class _TextListScreenState extends State<TextListScreen> {
+class _TextListScreenState extends State<TextGridScreen> {
   final TextEditingController _textController = TextEditingController();
   final List<String> _textList = [];
 
@@ -42,7 +42,7 @@ class _TextListScreenState extends State<TextListScreen> {
   void _removeTextFromList(int index) async {
     await widget.databaseRepository.deleteStoredText();
     setState(() {
-      _textList.removeAt(index);
+      _textList.remove;
     });
   }
 
@@ -77,16 +77,32 @@ class _TextListScreenState extends State<TextListScreen> {
                   } else if (snapshot.hasError) {
                     return const Center(child: Text('Error loading data'));
                   } else {
-                    return ListView.builder(
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio:
+                            3, // Adjust the aspect ratio as needed
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                      ),
                       itemCount: _textList.length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(_textList[index]),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              _removeTextFromList(index);
-                            },
+                        return GridTile(
+                          footer: GridTileBar(
+                            trailing: IconButton(
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.black,
+                              ),
+                              onPressed: () => _removeTextFromList(index),
+                            ),
+                          ),
+                          child: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(_textList[index]),
+                            ),
                           ),
                         );
                       },

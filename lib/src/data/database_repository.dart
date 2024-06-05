@@ -1,7 +1,7 @@
 abstract class DatabaseRepository {
-  void storeText(String input);
+  Future<void> storeText(String input);
 
-  String? getStoredText();
+  Future<String?> getStoredText();
 
-  void deleteStoredText();
+  Future<void> deleteStoredText();
 }

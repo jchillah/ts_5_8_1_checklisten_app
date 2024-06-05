@@ -4,17 +4,20 @@ class MockDatabase implements DatabaseRepository {
   String? _storedText;
 
   @override
-  String? getStoredText() {
+  Future<String?> getStoredText() async {
+    await Future.delayed(const Duration(seconds: 2));
     return _storedText;
   }
 
   @override
-  void storeText(String input) {
+  Future<void> storeText(String input) async {
+    await Future.delayed(const Duration(seconds: 2));
     _storedText = input;
   }
 
   @override
-  void deleteStoredText() {
+  Future<void> deleteStoredText() async {
+    await Future.delayed(const Duration(seconds: 2));
     _storedText = null;
   }
 }
