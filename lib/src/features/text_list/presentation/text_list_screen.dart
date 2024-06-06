@@ -7,10 +7,10 @@ class TextListScreen extends StatefulWidget {
   const TextListScreen({super.key, required this.databaseRepository});
 
   @override
-  _TextListScreenState createState() => _TextListScreenState();
+  TextListScreenState createState() => TextListScreenState();
 }
 
-class _TextListScreenState extends State<TextListScreen> {
+class TextListScreenState extends State<TextListScreen> {
   final TextEditingController _textController = TextEditingController();
   final List<String> _textList = [];
 
